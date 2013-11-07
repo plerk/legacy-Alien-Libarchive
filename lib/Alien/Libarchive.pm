@@ -2,7 +2,8 @@ package Alien::Libarchive;
 
 use strict;
 use warnings;
-use v5.10;
+
+use base 'Alien::Base';
 
 # ABSTRACT: Build and make available libarchive
 # VERSION
