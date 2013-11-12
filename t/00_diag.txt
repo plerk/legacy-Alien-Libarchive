@@ -1,4 +1,6 @@
 Alien::Base
+Alien::LibXML
+Alien::OpenSSL
 File::ShareDir
 Path::Class
 Test::More
