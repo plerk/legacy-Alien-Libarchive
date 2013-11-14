@@ -4,6 +4,8 @@ pod_spelling_system:
   # (regardless of what spell check thinks)
   stopwords:
     - libarchive
+    - libs
+    - cflags
 
 pod_coverage:
   # format is "Class#method" or "Class", regex allowed
