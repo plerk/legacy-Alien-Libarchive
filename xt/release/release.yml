@@ -5,6 +5,7 @@ pod_spelling_system:
   stopwords:
     - libarchive
     - libs
+    - FFI
     - cflags
 
 pod_coverage:

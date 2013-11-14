@@ -19,12 +19,45 @@ Build.PL
     
     $build->create_build_script
 
+Makefile.PL
+
+    use Alien::Libarchive;
+    use ExtUtils::MakeMaker;
+    
+    my $alien = Alien::Libarchive->new;
+    WriteMakefile(
+      ...
+      CFLAGS => Alien::Libarchive->cflags,
+      LIBS   => Alien::Libarchive->libs,
+    );
+
+FFI
+
+    use FFI::Sweet qw( ffi_lib );
+    
+    ffi_lib \$_ for DynaLoader::dl_findfile(split /\s+/, Alien::Libarchive->new->libs);
+
 # DESCRIPTION
 
 This distribution installs libarchive so that it can be used by other
-Perl distributions.  If it can find the development package for libarchive
-for your operating system it will use that, otherwise it will download
-libarchive, build and install that.
+Perl distributions.  If already installed for your operating system, and
+if it can find it, this distribution will use the libarchive that comes
+with your operating system, otherwise it will download it from the 
+Internet, build and install it.
+
+## Requirements
+
+### operating system install
+
+The development headers and libraries for libarchive
+
+On Debian you can install these with this command:
+
+    % sudo apt-get install libarchive-dev
+
+### from source install
+
+A C compiler and any prerequisites for libarchive.
 
 # METHODS
 
