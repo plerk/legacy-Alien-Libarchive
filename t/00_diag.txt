@@ -1,4 +1,3 @@
 Alien::Base
 File::ShareDir
-Path::Class
 Test::More
