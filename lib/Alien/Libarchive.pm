@@ -63,7 +63,7 @@ On Debian you can install these with this command:
 
 =head3 from source install
 
-A C compiler and any prerequisites for libarchive.
+A C compiler and any prerequisites for building libarchive.
 
 =head1 METHODS
 

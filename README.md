@@ -57,7 +57,7 @@ On Debian you can install these with this command:
 
 ### from source install
 
-A C compiler and any prerequisites for libarchive.
+A C compiler and any prerequisites for building libarchive.
 
 # METHODS
 
