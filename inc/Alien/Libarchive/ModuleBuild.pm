@@ -24,4 +24,21 @@ sub alien_do_commands
   $self->SUPER::alien_do_commands($phase);
 }
 
+sub alien_check_installed_version {
+  my($self) = @_;
+
+  if($^O eq 'freebsd' && -e "/usr/include/archive.h" && -e "/usr/include/archive_entry.h")
+  {
+    # bsdtar 2.8.4 - libarchive 2.8.4
+    my $out = `bsdtar --version`;
+    if($out =~ /- libarchive ([\d\.]+)$/)
+    {
+      print "found bsd system libarchive $1\n";
+      return $1;
+    }
+  }
+
+  return $self->SUPER::alien_check_installed_version;
+}
+
 1;
