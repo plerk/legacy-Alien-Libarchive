@@ -39,6 +39,7 @@ Makefile.PL
 
 FFI
 
+ use Alien::Libarchive;
  use FFI::Sweet qw( ffi_lib );
  
  ffi_lib \$_ for DynaLoader::dl_findfile(split /\s+/, Alien::Libarchive->new->libs);
