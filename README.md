@@ -46,6 +46,9 @@ if it can find it, this distribution will use the libarchive that comes
 with your operating system, otherwise it will download it from the 
 Internet, build and install it.
 
+If you set the environment variable ALIEN\_LIBARCHIVE to 'share', this
+distribution will ignore any system libarchive found.
+
 ## Requirements
 
 ### operating system install
