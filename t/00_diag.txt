@@ -1,3 +1,5 @@
 Alien::Base
+Alien::LibXML
+Alien::OpenSSL
 File::ShareDir
 Test::More

@@ -36,7 +36,7 @@ FFI
     use Alien::Libarchive;
     use FFI::Sweet qw( ffi_lib );
     
-    ffi_lib \$_ for DynaLoader::dl_findfile(split /\s+/, Alien::Libarchive->new->libs);
+    ffi_lib(Alien::Libarchive->new->libs);
 
 # DESCRIPTION
 
@@ -47,7 +47,10 @@ with your operating system, otherwise it will download it from the
 Internet, build and install it.
 
 If you set the environment variable ALIEN\_LIBARCHIVE to 'share', this
-distribution will ignore any system libarchive found.
+distribution will ignore any system libarchive found, and build from
+source instead.  This may be desirable if your operating system comes
+with a very old version of libarchive and an upgrade path for the 
+system libarchive is not possible.
 
 ## Requirements
 
@@ -58,6 +61,8 @@ The development headers and libraries for libarchive
 On Debian you can install these with this command:
 
     % sudo apt-get install libarchive-dev
+
+libarchive comes with FreeBSD as of version 5.3.
 
 ### from source install
 
@@ -72,6 +77,19 @@ Returns the C compiler flags necessary to build against libarchive.
 ## libs
 
 Returns the library flags necessary to build against libarchive.
+
+# CAVEATS
+
+Native windows support is completely missing at the moment.  It should
+in theory be possible to install in a cygwin environment.  However, I
+just tried it and it did not work.  Debian Linux and FreeBSD (9.0) have
+been tested in development of this distribution.
+
+Patches to improve portability and platform support would be eagerly
+appreciated.
+
+If you reinstall this distribution, you may need to reinstall any
+distributions that depend on it as well.
 
 # SEE ALSO
 
