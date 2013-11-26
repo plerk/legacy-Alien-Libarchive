@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.05      2013-11-26 16:57:45 -0500
+  - more diagnostics
+
 0.04      2013-11-26 12:05:20 -0500
   - use Alien::OpenSSL and Alien::LibXML if available
   - First CPAN release
