@@ -25,7 +25,7 @@ sub alien_do_commands
 sub alien_check_installed_version {
   my($self) = @_;
 
-  return if ($ENV{ALIEN_LIBARCHIVE}//'') eq 'share';
+  return if ($ENV{ALIEN_LIBARCHIVE}||'') eq 'share';
 
   if($^O eq 'freebsd' && -e "/usr/include/archive.h" && -e "/usr/include/archive_entry.h")
   {
