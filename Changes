@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - support for perl 5.12
 
 0.05      2013-11-26 16:57:45 -0500
   - more diagnostics

@@ -35,7 +35,7 @@ sub find_pkgconfig
     {
       if($child eq 'pkgconfig')
       {
-        push $list, File::Spec->catdir($path, $child);
+        push @$list, File::Spec->catdir($path, $child);
         next;
       }
       find_pkgconfig(File::Spec->catdir($path, $child), $list);
