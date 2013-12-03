@@ -2,6 +2,7 @@ package Alien::Libarchive;
 
 use strict;
 use warnings;
+use Text::ParseWords qw( shellwords );
 
 use base 'Alien::Base';
 
@@ -108,6 +109,21 @@ distributions that depend on it as well.
 =back
 
 =cut
+
+# workaround for Alien::Base gh#30
+sub import
+{
+  my $class = shift;
+  
+  if($class->install_type('share'))
+  {
+    unshift @DynaLoader::dl_library_path, 
+      grep { s/^-L// } 
+      shellwords( $class->libs );
+  }
+  
+  $class->SUPER::import(@_);
+}
 
 # extract the macros from the header files, this is a private function
 # because it may not be portable.  Used by Archive::Libarchive::XS

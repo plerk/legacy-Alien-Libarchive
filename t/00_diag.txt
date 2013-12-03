@@ -3,3 +3,4 @@ Alien::LibXML
 Alien::OpenSSL
 File::ShareDir
 Test::More
+Text::ParseWords
