@@ -4,6 +4,19 @@ use strict;
 use warnings;
 use base qw( Alien::Base::ModuleBuild );
 
+sub new
+{
+  my $class = shift;
+  if($^O eq 'MSWin32')
+  {
+    return Module::Build->new(@_);
+  }
+  else
+  {
+    return $class->SUPER::new(@_);
+  }
+}
+
 sub alien_do_commands
 {
   my($self, $phase) = @_;
