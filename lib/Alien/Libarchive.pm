@@ -118,9 +118,9 @@ CMake binaries from their website,
 
 =back
 
-=back
-
 And then install L<Alien::CMake>.
+
+=back
 
 =head1 METHODS
 

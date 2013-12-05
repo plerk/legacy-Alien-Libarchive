@@ -104,7 +104,7 @@ A C compiler and any prerequisites for building libarchive.
 
     - [http://www.cmake.org/cmake/resources/software.html](http://www.cmake.org/cmake/resources/software.html)
 
-And then install [Alien::CMake](https://metacpan.org/pod/Alien::CMake).
+    And then install [Alien::CMake](https://metacpan.org/pod/Alien::CMake).
 
 # METHODS
 
