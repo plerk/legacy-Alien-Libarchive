@@ -58,19 +58,53 @@ system libarchive is not possible.
 
 The development headers and libraries for libarchive
 
-On Debian you can install these with this command:
+- Debian
 
-    % sudo apt-get install libarchive-dev
+    On Debian you can install these with this command:
 
-On Cygwin, make sure that this package is installed
+        % sudo apt-get install libarchive-dev
 
-    libarchive-devel
+- Cygwin
 
-libarchive comes with FreeBSD as of version 5.3.
+    On Cygwin, make sure that this package is installed
+
+        libarchive-devel
+
+- FreeBSD
+
+    libarchive comes with FreeBSD as of version 5.3.
 
 ### from source install
 
 A C compiler and any prerequisites for building libarchive.
+
+- Debian
+
+    On Debian build-essential should be good enough:
+
+        % sudo apt-get install build-essential
+
+- Cygwin
+
+    On Cygwin, I couldn't get libarchive to build without making a
+    minor tweak to one of the include files.  On Cygwin this module
+    will patch libarchive before it attempts to build if it is
+    version 3.1.2.
+
+- Strawberry Perl
+
+    For MinGW based Perls (including Strawberry), this module will
+    delegate to [Alien::Libarchive::MSWin32](https://metacpan.org/pod/Alien::Libarchive::MSWin32).  The reason for not
+    supporting MinGW directly in this distribution is because it
+    requires CMake and configure time, and I don't want to make
+    that a prereq everywhere.
+
+    Probably the easiest way to get this to work is to install
+    CMake binaries from their website,
+
+    - [http://www.cmake.org/cmake/resources/software.html](http://www.cmake.org/cmake/resources/software.html)
+
+And then install [Alien::CMake](https://metacpan.org/pod/Alien::CMake).
 
 # METHODS
 
@@ -84,11 +118,7 @@ Returns the library flags necessary to build against libarchive.
 
 # CAVEATS
 
-Native windows support is completely missing at the moment.  It is 
-possible to install using the "operating system install" if you have the 
-package `libarchive-devel` installed (you should be able to find it 
-with `setup.exe`.  Doing a "from source install" does not work as of
-this writing.  Debian Linux and FreeBSD (9.0) have been tested the most
+Debian Linux and FreeBSD (9.0) have been tested the most
 in development of this distribution.
 
 Patches to improve portability and platform support would be eagerly
