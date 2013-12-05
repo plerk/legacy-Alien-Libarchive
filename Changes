@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
   - prefer non-system lib when that is what you installed
+  - patch 3.1.2 on cygwin so that it will build
 
 0.06      2013-11-29 10:02:22 -0500
   - support for perl 5.12, 5.10, 5.8
