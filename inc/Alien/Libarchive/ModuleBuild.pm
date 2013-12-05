@@ -41,4 +41,30 @@ sub alien_check_installed_version {
   return $self->SUPER::alien_check_installed_version;
 }
 
+package
+  main;
+
+sub alien_patch ()
+{
+  if($^O eq 'cygwin' && `pwd` =~ /libarchive-3.1.2/)
+  {
+    open my $in,  '<', 'libarchive/archive_crypto_private.h';
+    open my $out, '>', 'libarchive/archive_crypto_private.h.tmp';
+    while(<$in>)
+    {
+      if(/^#include \<wincrypt.h\>/)
+      {
+        print $out "#if defined(__CYGWIN__)\n";
+        print $out "#include <windows.h>\n";
+        print $out "#endif\n";
+      }
+      print $out $_;
+    }
+    close $in;
+    close $out;
+    unlink 'libarchive/archive_crypto_private.h';
+    rename 'libarchive/archive_crypto_private.h.tmp', 'libarchive/archive_crypto_private.h';
+  }
+}
+
 1;
