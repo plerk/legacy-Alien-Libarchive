@@ -69,6 +69,10 @@ On Debian you can install these with this command:
 
  % sudo apt-get install libarchive-dev
 
+On Cygwin, make sure that this package is installed
+
+ libarchive-devel
+
 libarchive comes with FreeBSD as of version 5.3.
 
 =head3 from source install
@@ -87,10 +91,12 @@ Returns the library flags necessary to build against libarchive.
 
 =head1 CAVEATS
 
-Native windows support is completely missing at the moment.  It should
-in theory be possible to install in a cygwin environment.  However, I
-just tried it and it did not work.  Debian Linux and FreeBSD (9.0) have
-been tested in development of this distribution.
+Native windows support is completely missing at the moment.  It is 
+possible to install using the "operating system install" if you have the 
+package C<libarchive-devel> installed (you should be able to find it 
+with C<setup.exe>.  Doing a "from source install" does not work as of
+this writing.  Debian Linux and FreeBSD (9.0) have been tested the most
+in development of this distribution.
 
 Patches to improve portability and platform support would be eagerly
 appreciated.
