@@ -62,19 +62,65 @@ system libarchive is not possible.
 
 The development headers and libraries for libarchive
 
+=over 4
+
+=item Debian
+
 On Debian you can install these with this command:
 
  % sudo apt-get install libarchive-dev
+
+=item Cygwin
 
 On Cygwin, make sure that this package is installed
 
  libarchive-devel
 
+=item FreeBSD
+
 libarchive comes with FreeBSD as of version 5.3.
+
+=back
 
 =head3 from source install
 
 A C compiler and any prerequisites for building libarchive.
+
+=over 4
+
+=item Debian
+
+On Debian build-essential should be good enough:
+
+ % sudo apt-get install build-essential
+
+=item Cygwin
+
+On Cygwin, I couldn't get libarchive to build without making a
+minor tweak to one of the include files.  On Cygwin this module
+will patch libarchive before it attempts to build if it is
+version 3.1.2.
+
+=item Strawberry Perl
+
+For MinGW based Perls (including Strawberry), this module will
+delegate to L<Alien::Libarchive::MSWin32>.  The reason for not
+supporting MinGW directly in this distribution is because it
+requires CMake and configure time, and I don't want to make
+that a prereq everywhere.
+
+Probably the easiest way to get this to work is to install
+CMake binaries from their website,
+
+=over 4
+
+=item L<http://www.cmake.org/cmake/resources/software.html>
+
+=back
+
+=back
+
+And then install L<Alien::CMake>.
 
 =head1 METHODS
 
@@ -88,11 +134,7 @@ Returns the library flags necessary to build against libarchive.
 
 =head1 CAVEATS
 
-Native windows support is completely missing at the moment.  It is 
-possible to install using the "operating system install" if you have the 
-package C<libarchive-devel> installed (you should be able to find it 
-with C<setup.exe>.  Doing a "from source install" does not work as of
-this writing.  Debian Linux and FreeBSD (9.0) have been tested the most
+Debian Linux and FreeBSD (9.0) have been tested the most
 in development of this distribution.
 
 Patches to improve portability and platform support would be eagerly

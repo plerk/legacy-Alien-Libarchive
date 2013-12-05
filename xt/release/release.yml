@@ -8,6 +8,8 @@ pod_spelling_system:
     - FFI
     - cflags
     - reinstall
+    - CMake
+    - MinGW
 
 pod_coverage:
   # format is "Class#method" or "Class", regex allowed
