@@ -1,6 +1,7 @@
 Alien::Base
 Alien::LibXML
 Alien::OpenSSL
+Alien::bz2
 File::ShareDir
 Test::More
 Text::ParseWords

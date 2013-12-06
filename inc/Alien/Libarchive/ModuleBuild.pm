@@ -27,12 +27,12 @@ sub alien_do_commands
   unless($cflags)
   {
     my $first = 1;
-    foreach my $name (qw( Alien::LibXML Alien::OpenSSL ))
+    foreach my $name (qw( Alien::LibXML Alien::OpenSSL Alien::bz2 ))
     {
       my $alien = eval qq{ require $name; $name->new };
       next if $@;
       print "\n\n" if $first; $first = 0;
-      print "  trying to use $name\n"
+      print "  trying to use $name\n";
       $cflags .= ' ' . $alien->cflags;
       $libs   .= ' ' . $alien->libs;
     }
