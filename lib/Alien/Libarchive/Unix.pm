@@ -8,7 +8,7 @@ use warnings;
 use Text::ParseWords qw( shellwords );
 use base 'Alien::Base';
 use File::ShareDir ();
-
+use File::Spec;
 
 # ABSTRACT: Build and make available libarchive (machinery for Unix)
 # VERSION
@@ -36,7 +36,14 @@ sub import
       grep { s/^-L// } 
       shellwords( $class->libs );
     
-    $ENV{PATH} = File::ShareDir::dist_dir('Alien-Libarchive') . "/bin:$ENV{PATH}" if $^O eq 'cygwin';
+    if($^O eq 'cygwin')
+    {
+      foreach my $dir (map { File::Spec->catdir($class->dist_dir, $_) } qw( .libs bin ))
+      {
+        $ENV{PATH} = join(':', $dir, $ENV{PATH}) if -d $dir;
+      }
+    }
+
   }
   
   $class->SUPER::import(@_);
