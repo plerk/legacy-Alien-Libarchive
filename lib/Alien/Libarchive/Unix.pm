@@ -7,6 +7,7 @@ use strict;
 use warnings;
 use Text::ParseWords qw( shellwords );
 use base 'Alien::Base';
+use File::ShareDir ();
 
 
 # ABSTRACT: Build and make available libarchive (machinery for Unix)
@@ -34,6 +35,8 @@ sub import
     unshift @DynaLoader::dl_library_path, 
       grep { s/^-L// } 
       shellwords( $class->libs );
+    
+    $ENV{PATH} = File::ShareDir::dist_dir('Alien-Libarchive') . "/bin:$ENV{PATH}" if $^O eq 'cygwin';
   }
   
   $class->SUPER::import(@_);
