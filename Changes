@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.08      2013-12-12 17:07:56 -0500
   - documentation
   - try to use Alien::bz2 if available
   - include bin directory in PATH for cygwin install_type = share 
