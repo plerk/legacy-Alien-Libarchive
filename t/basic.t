@@ -28,7 +28,11 @@ main(int argc, char *argv[])
   if(a == NULL)
     return 2;
   
+#if ARCHIVE_VERSION_NUMBER >= 3000000
   r = archive_read_free(a);
+#else
+  r = archive_read_finish(a);
+#endif
   printf("archive_read_free = %d\n", r);
   if(r != ARCHIVE_OK)
     return 2;
