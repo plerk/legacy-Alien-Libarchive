@@ -5,6 +5,7 @@ Revision history for {{$dist->name}}
   - try to use Alien::bz2 if available
   - include bin directory in PATH for cygwin install_type = share 
     so dll can be found
+  - basic compile check to be sure it works
 
 0.07      2013-12-05 18:44:24 -0500
   - prefer non-system lib when that is what you installed
