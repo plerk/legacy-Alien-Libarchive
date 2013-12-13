@@ -3,6 +3,7 @@ package Alien::Libarchive::ModuleBuild;
 use strict;
 use warnings;
 use base qw( Alien::Base::ModuleBuild );
+use FindBin ();
 
 sub new
 {
@@ -62,6 +63,13 @@ sub alien_check_installed_version {
   }
 
   return $self->SUPER::alien_check_installed_version;
+}
+
+sub alien_interpolate
+{
+  my($self, $string) = @_;
+  $string =~ s/(?<!\%)\%d/$FindBin::Bin/eg;
+  $self->SUPER::alien_interpolate($string);
 }
 
 package
