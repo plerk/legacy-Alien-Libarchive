@@ -5,7 +5,7 @@ language: perl
 install:
   - cpanm -n Dist::Zilla
   - dzil authordeps --missing | cpanm -n
-  - cpanm -n Alien::Base File::ShareDir
+  - cpanm -n Alien::Base File::ShareDir Test::CChecker
   
 
 perl:
