@@ -21,6 +21,6 @@ perl:
 
 #before_script: /bin/true
 
-script: dzil test
+script: dzil test -v
 
 #after_script: /bin/true
