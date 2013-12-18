@@ -29,33 +29,39 @@ sub alien_do_commands
   unless(defined $cflags)
   {
     my $first = 1;
-    foreach my $name (qw( Alien::LibXML Alien::OpenSSL Alien::bz2 ))
+    foreach my $dep ([ qw( Alien::Libxml2 Alien::LibXML ) ], qw( Alien::OpenSSL Alien::bz2 ))
     {
-      my $alien = eval qq{ require $name; $name->new };
-      next if $@;
-      print "\n\n" if $first; $first = 0;
-      print "  trying to use $name: ";
-      
-      require ExtUtils::CChecker;
-      require Capture::Tiny;
-      
-      my $cc = ExtUtils::CChecker->new;
-      $cc->push_extra_compiler_flags(shellwords ' ' . $alien->cflags);
-      $cc->push_extra_linker_flags(shellwords  ' ' . $alien->libs);
-      my $ok;
-      my $out = Capture::Tiny::capture_merged(sub {
-        $ok = $cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }");
-      });
-      if($ok)
+      my @dep = ref $dep ? @$dep : ($dep);
+      $DB::single = 1;
+      foreach my $name (@dep)
       {
-        print "ok\n";
-        $cflags .= ' ' . $alien->cflags;
-        $libs   .= ' ' . $alien->libs;
-      }
-      else
-      {
-        print "failed\n";
-        print $out;
+        my $alien = eval qq{ require $name; $name->new };
+        next if $@;
+        print "\n\n" if $first; $first = 0;
+        print "  trying to use $name: ";
+      
+        require ExtUtils::CChecker;
+        require Capture::Tiny;
+      
+        my $cc = ExtUtils::CChecker->new;
+        $cc->push_extra_compiler_flags(shellwords ' ' . $alien->cflags);
+        $cc->push_extra_linker_flags(shellwords  ' ' . $alien->libs);
+        my $ok;
+        my $out = Capture::Tiny::capture_merged(sub {
+          $ok = $cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }");
+        });
+        if($ok)
+        {
+          print "ok\n";
+          $cflags .= ' ' . $alien->cflags;
+          $libs   .= ' ' . $alien->libs;
+          last;
+        }
+        else
+        {
+          print "failed\n";
+          print $out;
+        }
       }
     }
     print "\n\n" unless $first;
@@ -72,15 +78,35 @@ sub alien_check_installed_version {
 
   return if ($ENV{ALIEN_LIBARCHIVE}||'') eq 'share';
 
-  if($^O eq 'freebsd' && -e "/usr/include/archive.h" && -e "/usr/include/archive_entry.h")
+  require ExtUtils::CChecker;
+  require Capture::Tiny;
+      
+  my $cc = ExtUtils::CChecker->new;
+  $cc->push_extra_linker_flags('-larchive');
+  
+  my $ok = 0;
+  my $out = Capture::Tiny::capture_merged(sub {
+    $ok = $cc->try_compile_run(
+      join("\n", 
+        '#include <archive.h>',
+        'int main(int argc, char *argv[])',
+        '{',
+        '  printf("version: %s\n", archive_version_string());',
+        '  return 0;',
+        '}',
+        '',
+      ),
+    );
+  });
+
+  if($ok && $out =~ /version: libarchive ([0-9.]+)/)
   {
-    # bsdtar 2.8.4 - libarchive 2.8.4
-    my $out = `bsdtar --version`;
-    if($out =~ /- libarchive ([\d\.]+)$/)
-    {
-      print "found bsd system libarchive $1\n";
-      return $1;
-    }
+    print "\n\n  using operating system by guess version $1\n\n";
+    return $1;
+  }
+  else
+  {
+    print "failed:\n$out\n";
   }
 
   return $self->SUPER::alien_check_installed_version;

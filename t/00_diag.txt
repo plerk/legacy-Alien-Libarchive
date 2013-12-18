@@ -7,4 +7,3 @@ ExtUtils::CChecker
 File::ShareDir
 Test::CChecker
 Test::More
-Text::ParseWords
