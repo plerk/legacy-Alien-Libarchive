@@ -104,10 +104,6 @@ sub alien_check_installed_version {
     print "\n\n  using operating system by guess version $1\n\n";
     return $1;
   }
-  else
-  {
-    print "failed:\n$out\n";
-  }
 
   return $self->SUPER::alien_check_installed_version;
 }
