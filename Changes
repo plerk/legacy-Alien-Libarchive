@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.09      2013-12-18 09:06:08 -0500
   - verify Alien deps flags can at least compile a simple c program
   - better detection of libarchive sans pkg-config as a system install
 
