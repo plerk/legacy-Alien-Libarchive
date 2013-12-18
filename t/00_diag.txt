@@ -2,6 +2,8 @@ Alien::Base
 Alien::LibXML
 Alien::OpenSSL
 Alien::bz2
+Capture::Tiny
+ExtUtils::CChecker
 File::ShareDir
 Test::CChecker
 Test::More

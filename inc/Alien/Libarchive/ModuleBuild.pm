@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use base qw( Alien::Base::ModuleBuild );
 use FindBin ();
+use Text::ParseWords qw( shellwords );
 
 sub new
 {
@@ -18,14 +19,14 @@ sub new
   }
 }
 
-my $cflags = '';
-my $libs   = '';
+my $cflags;
+my $libs;
   
 sub alien_do_commands
 {
   my($self, $phase) = @_;
 
-  unless($cflags)
+  unless(defined $cflags)
   {
     my $first = 1;
     foreach my $name (qw( Alien::LibXML Alien::OpenSSL Alien::bz2 ))
@@ -33,9 +34,29 @@ sub alien_do_commands
       my $alien = eval qq{ require $name; $name->new };
       next if $@;
       print "\n\n" if $first; $first = 0;
-      print "  trying to use $name\n";
-      $cflags .= ' ' . $alien->cflags;
-      $libs   .= ' ' . $alien->libs;
+      print "  trying to use $name: ";
+      
+      require ExtUtils::CChecker;
+      require Capture::Tiny;
+      
+      my $cc = ExtUtils::CChecker->new;
+      $cc->push_extra_compiler_flags(shellwords ' ' . $alien->cflags);
+      $cc->push_extra_linker_flags(shellwords  ' ' . $alien->libs);
+      my $ok;
+      my $out = Capture::Tiny::capture_merged(sub {
+        $ok = $cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }");
+      });
+      if($ok)
+      {
+        print "ok\n";
+        $cflags .= ' ' . $alien->cflags;
+        $libs   .= ' ' . $alien->libs;
+      }
+      else
+      {
+        print "failed\n";
+        print $out;
+      }
     }
     print "\n\n" unless $first;
   }
