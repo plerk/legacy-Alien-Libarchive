@@ -1,4 +1,4 @@
-# Alien::Libarchive
+# Alien::Libarchive [![Build Status](https://secure.travis-ci.org/plicease/Alien-Libarchive.png)](http://travis-ci.org/plicease/Alien-Libarchive)
 
 Build and make available libarchive
 
