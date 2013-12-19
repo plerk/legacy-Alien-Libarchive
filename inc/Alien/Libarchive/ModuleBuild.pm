@@ -102,6 +102,7 @@ sub alien_check_installed_version {
   if($ok && $out =~ /version: libarchive ([0-9.]+)/)
   {
     print "\n\n  using operating system by guess version $1\n\n";
+    $self->config_data( system_no_pkg_config => 1 );
     return $1;
   }
 

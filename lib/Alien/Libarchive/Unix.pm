@@ -86,12 +86,20 @@ sub _macro_list
 
 sub libs
 {
-  return shift->SUPER::libs;
+  my $self = shift;
+  if($self->config('system_no_pkg_config'))
+  {  return '-larchive' }
+  else
+  { return $self->SUPER::libs }
 }
 
 sub cflags
 {
-  return shift->SUPER::cflags;
+  my $self = shift;
+  if($self->config('system_no_pkg_config'))
+  { return '' }
+  else
+  { return $self->SUPER::cflags }
 }
 
 1;
