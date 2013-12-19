@@ -86,28 +86,12 @@ sub _macro_list
 
 sub libs
 {
-  my($self) = @_;
-  if($self->install_type eq 'system' && $^O eq 'freebsd' && -e "/usr/include/archive.h" && -e "/usr/include/archive_entry.h")
-  {
-    return '-larchive';
-  }
-  else
-  {
-    return $self->SUPER::libs;
-  }
+  return shift->SUPER::libs;
 }
 
 sub cflags
 {
-  my($self) = @_;
-  if($self->install_type eq 'system' && $^O eq 'freebsd' && -e "/usr/include/archive.h" && -e "/usr/include/archive_entry.h")
-  {
-    return '';
-  }
-  else
-  {
-    return $self->SUPER::cflags;
-  }
+  return shift->SUPER::cflags;
 }
 
 1;
