@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.10      2013-12-19 03:04:41 -0500
+  - fix for beter detection of libarchive sans pkg-config as a system install
+    (runtime didn't work on non-FreeBSD systems)
+
 0.09      2013-12-18 09:06:08 -0500
   - verify Alien deps flags can at least compile a simple c program
   - better detection of libarchive sans pkg-config as a system install
