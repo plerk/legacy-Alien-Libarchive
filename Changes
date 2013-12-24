@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
 
 0.11      2013-12-24 09:26:53 -0500
+  - require Alien::Libarchive::MSWin32 0.02 on MSWin32
 
 0.10      2013-12-19 03:04:41 -0500
   - fix for beter detection of libarchive sans pkg-config as a system install
