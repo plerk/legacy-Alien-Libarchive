@@ -1,8 +1,6 @@
 sub system_lib (&)     {}
 sub set ($$)           {}
 sub fetch_http (&)     {}
-sub url ($)            {}
-sub pattern ($)        {}
 sub build (&)          {}
 sub make (@)           {}
 sub cmake (@)          {}
@@ -13,6 +11,7 @@ sub compile_test_c ($) {}
 
 plugin 'autoconf' if $^O ne 'MSWin32';
 plugin 'cmake'    if $^O eq 'MSWin32';
+plugin 'make';
 plugin 'http';
 plugin 'system';
 
@@ -21,8 +20,8 @@ system_lib {
 };
 
 fetch_http {
-  url 'http://www.libarchive.org/downloads/';
-  pattern 'libarchive-([\d\.]+)\.tar\.gz';
+  set url     => 'http://www.libarchive.org/downloads/';
+  set pattern => 'libarchive-([\\d\\.]+)\\.tar\\.gz';
 
   build {
     cmake "-DENABLE_TEST=OFF", "-DENABLE_TAR=OFF", "-DENABLE_CPIO=OFF" if $^O eq 'MSWin32';
