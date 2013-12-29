@@ -1,0 +1,51 @@
+sub system_lib (&)     {}
+sub set ($$)           {}
+sub fetch_http (&)     {}
+sub url ($)            {}
+sub pattern ($)        {}
+sub build (&)          {}
+sub make (@)           {}
+sub cmake (@)          {}
+sub configure (@)      {}
+sub with ($)           {}
+sub plugin ($)         {}
+sub compile_test_c ($) {}
+
+plugin 'autoconf' if $^O ne 'MSWin32';
+plugin 'cmake'    if $^O eq 'MSWin32';
+plugin 'http';
+plugin 'system';
+
+system_lib {
+  set lib_name => 'archive';
+};
+
+fetch_http {
+  url 'http://www.libarchive.org/downloads/';
+  pattern 'libarchive-([\d\.]+)\.tar\.gz';
+
+  build {
+    cmake "-DENABLE_TEST=OFF", "-DENABLE_TAR=OFF", "-DENABLE_CPIO=OFF" if $^O eq 'MSWin32';
+    configure '--disable-bsdtar', '--disable-bsdcpio' if $^O ne 'MSWin32';
+    make;
+    make 'install', 'DESTDIR=${DESTDIR}';
+    
+    if($^O eq 'MSWin32')
+    {
+      set libs => '-larchive_static';
+    }
+  };
+
+};
+
+compile_test_c <<EOF;
+#include <archive.h>
+#include <archive_entry.h>
+int main(int argc, char *argv[])
+{
+  struct archive_entry *entry;
+  entry = archive_entry_new();
+  archive_entry_free(entry);
+}
+EOF
+
