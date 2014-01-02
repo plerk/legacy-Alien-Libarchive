@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - require Alien::Libarchive::MSWin32 0.04 on MSWin32
 
 0.11      2013-12-24 09:26:53 -0500
   - require Alien::Libarchive::MSWin32 0.02 on MSWin32
