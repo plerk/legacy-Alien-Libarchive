@@ -32,7 +32,6 @@ sub alien_do_commands
     foreach my $dep ([ qw( Alien::Libxml2 Alien::LibXML ) ], qw( Alien::OpenSSL Alien::bz2 ))
     {
       my @dep = ref $dep ? @$dep : ($dep);
-      $DB::single = 1;
       foreach my $name (@dep)
       {
         my $alien = eval qq{ require $name; $name->new };
