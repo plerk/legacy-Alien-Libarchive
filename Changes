@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.15      2014-01-29 11:30:49 -0500
+  - fix prereqs
+
 0.14      2014-01-29 09:37:52 -0500
   - build with -fno-common if possible
 
