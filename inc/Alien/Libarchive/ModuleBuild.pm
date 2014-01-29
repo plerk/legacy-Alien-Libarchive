@@ -67,7 +67,7 @@ sub alien_do_commands
   }
   
   
-  my $cc = ExtUtils:CChecker->new;
+  my $cc = ExtUtils::CChecker->new;
   $cc->push_extra_compiler_flags('-fno-common');
   if($cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }"))
   {
