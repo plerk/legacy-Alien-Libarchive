@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.14      2014-01-29 09:37:52 -0500
+  - build with -fno-common if possible
+
 0.12      2014-01-02 10:59:11 -0500
   - require Alien::Libarchive::MSWin32 0.04 on MSWin32
 
