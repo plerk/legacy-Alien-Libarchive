@@ -65,9 +65,20 @@ sub alien_do_commands
     }
     print "\n\n" unless $first;
   }
+  
+  
+  my $cc = ExtUtils:CChecker->new;
+  $cc->push_extra_compiler_flags('-fno-common');
+  if($cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }"))
+  {
+    $cflags .= ' -fno-common';
+  }
 
   local $ENV{CFLAGS} = $cflags;
   local $ENV{LIBS}   = $libs;
+  
+  print "CFLAGS=$cflags\n";
+  print "LIBS=$libs\n";
   
   $self->SUPER::alien_do_commands($phase);
 }
