@@ -28,6 +28,7 @@ sub alien_do_commands
 
   unless(defined $cflags)
   {
+    require ExtUtils::CChecker;
     my $first = 1;
     foreach my $dep ([ qw( Alien::Libxml2 Alien::LibXML ) ], qw( Alien::OpenSSL Alien::bz2 ))
     {
@@ -39,7 +40,6 @@ sub alien_do_commands
         print "\n\n" if $first; $first = 0;
         print "  trying to use $name: ";
       
-        require ExtUtils::CChecker;
         require Capture::Tiny;
       
         my $cc = ExtUtils::CChecker->new;
@@ -64,15 +64,15 @@ sub alien_do_commands
       }
     }
     print "\n\n" unless $first;
+
+    my $cc = ExtUtils::CChecker->new;
+    $cc->push_extra_compiler_flags('-fno-common');
+    if($cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }"))
+    {
+      $cflags .= ' -fno-common';
+    }
   }
   
-  
-  my $cc = ExtUtils::CChecker->new;
-  $cc->push_extra_compiler_flags('-fno-common');
-  if($cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }"))
-  {
-    $cflags .= ' -fno-common';
-  }
 
   local $ENV{CFLAGS} = $cflags;
   local $ENV{LIBS}   = $libs;
