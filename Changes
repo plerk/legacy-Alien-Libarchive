@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - build with -fPIC if possible
 
 0.15      2014-01-29 11:30:49 -0500
   - fix prereqs

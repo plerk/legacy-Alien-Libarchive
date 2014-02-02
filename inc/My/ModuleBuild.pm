@@ -66,11 +66,18 @@ sub alien_do_commands
     print "\n\n" unless $first;
 
     my $cc = ExtUtils::CChecker->new;
+    $cc->push_extra_compiler_flags('-fPIC');
+    if($cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }"))
+    {
+      $cflags .= ' -fPIC';
+    }
+
     $cc->push_extra_compiler_flags('-fno-common');
     if($cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }"))
     {
       $cflags .= ' -fno-common';
     }
+
   }
   
 
