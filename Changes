@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.16      2014-02-02 04:30:52 -0500
   - build with -fPIC if possible
 
 0.15      2014-01-29 11:30:49 -0500
