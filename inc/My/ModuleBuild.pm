@@ -50,8 +50,8 @@ sub alien_do_commands
         my $out = Capture::Tiny::capture_merged(sub {
           $ok = $cc->try_compile_run(
             source               => "int main(int argc, char *argv[]) { return 0; }",
-            extra_compiler_flags => shellwords($alien->cflags),
-            extra_linker_flags   => shellwords($alien->libs),
+            extra_compiler_flags => [shellwords($alien->cflags)],
+            extra_linker_flags   => [shellwords($alien->libs)],
           );
         });
         if($ok)
