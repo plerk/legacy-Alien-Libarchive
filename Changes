@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.18      2014-02-03 16:40:43 -0500
   - Fix ExtUtils::CChecker calling error
 
 0.17      2014-02-03 16:37:39 -0500
