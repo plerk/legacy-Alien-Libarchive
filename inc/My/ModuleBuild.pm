@@ -5,6 +5,7 @@ use warnings;
 use base qw( Alien::Base::ModuleBuild );
 use FindBin ();
 use Text::ParseWords qw( shellwords );
+use Config;
 
 sub new
 {
@@ -29,6 +30,9 @@ sub alien_do_commands
   unless(defined $cflags)
   {
     require ExtUtils::CChecker;
+    require Capture::Tiny;
+    my $cc = ExtUtils::CChecker->new;
+
     my $first = 1;
     foreach my $dep ([ qw( Alien::Libxml2 Alien::LibXML ) ], qw( Alien::OpenSSL Alien::bz2 ))
     {
@@ -40,20 +44,22 @@ sub alien_do_commands
         print "\n\n" if $first; $first = 0;
         print "  trying to use $name: ";
       
-        require Capture::Tiny;
-      
-        my $cc = ExtUtils::CChecker->new;
         $cc->push_extra_compiler_flags(shellwords ' ' . $alien->cflags);
         $cc->push_extra_linker_flags(shellwords  ' ' . $alien->libs);
         my $ok;
         my $out = Capture::Tiny::capture_merged(sub {
-          $ok = $cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }");
+          $ok = $cc->try_compile_run(
+            source               => "int main(int argc, char *argv[]) { return 0; }",
+            extra_compiler_flags => shellwords($alien->cflags),
+            extra_linker_flags   => shellwords($alien->libs),
+          );
         });
         if($ok)
         {
           print "ok\n";
-          $cflags .= ' ' . $alien->cflags;
           $libs   .= ' ' . $alien->libs;
+          $cc->push_extra_compiler_flags(shellwords $alien->cflags);
+          $cc->push_extra_linker_flags($alien->libs);
           last;
         }
         else
@@ -65,18 +71,7 @@ sub alien_do_commands
     }
     print "\n\n" unless $first;
 
-    my $cc = ExtUtils::CChecker->new;
-    $cc->push_extra_compiler_flags('-fPIC');
-    if($cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }"))
-    {
-      $cflags .= ' -fPIC';
-    }
-
-    $cc->push_extra_compiler_flags('-fno-common');
-    if($cc->try_compile_run("int main(int argc, char *argv[]) { return 0; }"))
-    {
-      $cflags .= ' -fno-common';
-    }
+    $cflags = join ' ', $Config{optimize}, $Config{cccdlflags}, @{ $cc->extra_compiler_flags };
 
   }
   

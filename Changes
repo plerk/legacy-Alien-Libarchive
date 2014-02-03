@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - remove -fPIC / -fno-common detection and instead rely on $Config{cccdlflags}
+  - use $Config{optimize} for CFLAGS passed to libarchive configure
 
 0.16      2014-02-02 04:30:52 -0500
   - build with -fPIC if possible
