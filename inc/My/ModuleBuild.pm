@@ -16,7 +16,22 @@ sub new
   }
   else
   {
-    return $class->SUPER::new(@_);
+    return $class->SUPER::new(
+      "alien_build_commands" => [
+        "%x -I../../inc -MMy::ModuleBuild -e alien_patch",
+        "%pconfigure --prefix=%s --disable-bsdtar --disable-bsdcpio",
+        "make",
+        "make DESTDIR=%d/_test install"
+      ],
+      "alien_name" => "libarchive",
+      "alien_repository" => {
+        "host" => "www.libarchive.org",
+        "location" => "/downloads/",
+        "pattern" => "^libarchive-([\\d\\.]+)\\.tar\\.gz\$",
+        "protocol" => "http"
+      },
+      @_,
+    );
   }
 }
 
