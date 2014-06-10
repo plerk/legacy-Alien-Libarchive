@@ -44,6 +44,15 @@ FFI
 
 =head1 DESCRIPTION
 
+B<NOTE>: This version of Alien::Libarchive has been deprecated in favor
+of a re-write which is hosted here:
+
+=over 4
+
+=item L<https://github.com/plicease/Alien-Libarchive2>
+
+=back
+
 This distribution installs libarchive so that it can be used by other
 Perl distributions.  If already installed for your operating system, and
 if it can find it, this distribution will use the libarchive that comes

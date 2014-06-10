@@ -1,4 +1,4 @@
-# Alien::Libarchive [![Build Status](https://secure.travis-ci.org/plicease/Alien-Libarchive.png)](http://travis-ci.org/plicease/Alien-Libarchive)
+# Alien::Libarchive [![Build Status](https://secure.travis-ci.org/plicease/Alien-Libarchive1.png)](http://travis-ci.org/plicease/Alien-Libarchive1)
 
 Build and make available libarchive
 
@@ -39,6 +39,11 @@ FFI
     ffi_lib(Alien::Libarchive->new->libs);
 
 # DESCRIPTION
+
+**NOTE**: This version of Alien::Libarchive has been deprecated in favor
+of a re-write which is hosted here:
+
+- [https://github.com/plicease/Alien-Libarchive2](https://github.com/plicease/Alien-Libarchive2)
 
 This distribution installs libarchive so that it can be used by other
 Perl distributions.  If already installed for your operating system, and
